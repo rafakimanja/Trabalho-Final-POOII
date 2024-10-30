@@ -15,3 +15,4 @@ Pensando no que o sistema de propõe, ser simples, optamos por salvar os seguint
 ## Modelo Relacional
 
 
+![ER_estacionamento](https://github.com/user-attachments/assets/b3302676-216c-47fc-b489-49237f3cec1b)
