@@ -66,7 +66,7 @@ public class PessoaDAO implements InterfaceDAO{
 
 
     @Override
-    public boolean update(Object objetoModelo, int id) {
+    public boolean update(Object objetoModelo) {
 
         Connection conector = conexaoBD.getConnection();
 
@@ -79,7 +79,7 @@ public class PessoaDAO implements InterfaceDAO{
             stmt.setString(1, pessoa.getNome());
             stmt.setString(2, pessoa.getCpf());
             stmt.setString(3, pessoa.getTelefone());
-            stmt.setInt(4, id);
+            stmt.setString(4, pessoa.getCpf());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {

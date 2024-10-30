@@ -72,15 +72,16 @@ public class VeiculoDAO implements InterfaceDAO{
         Connection conector = conexaoBD.getConnection();
 
         try{
-            String sql = "UPDATE veiculos SET modelo = ?, cor = ?, tipo = ? WHERE placa = ?";
+            String sql = "UPDATE veiculos SET placa = ?, modelo = ?, cor = ?, tipo = ? WHERE placa = ?";
 
             PreparedStatement stmt = conector.prepareStatement(sql);
 
             Veiculo veiculo = (Veiculo) objetoModelo;
-            stmt.setString(1, veiculo.getModelo());
-            stmt.setString(2, veiculo.getCor());
-            stmt.setString(3, veiculo.getTipo().name());
-            stmt.setString(4, veiculo.getPlaca());
+            stmt.setString(1, veiculo.getPlaca());
+            stmt.setString(2, veiculo.getModelo());
+            stmt.setString(3, veiculo.getCor());
+            stmt.setString(4, veiculo.getTipo().name());
+            stmt.setString(5, veiculo.getPlaca());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
