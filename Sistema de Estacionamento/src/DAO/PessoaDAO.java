@@ -79,7 +79,7 @@ public class PessoaDAO implements InterfaceDAO{
             stmt.setString(1, pessoa.getNome());
             stmt.setString(2, pessoa.getCpf());
             stmt.setString(3, pessoa.getTelefone());
-            stmt.setString(4, pessoa.getCpf());
+            stmt.setInt(4, pessoa.getId());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -111,6 +111,7 @@ public class PessoaDAO implements InterfaceDAO{
 
             while (rs.next()) {
                 Pessoa pessoa = new Pessoa(
+                        rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("cpf"),
                         rs.getString("telefone")
@@ -143,6 +144,7 @@ public class PessoaDAO implements InterfaceDAO{
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Pessoa pessoa = new Pessoa(
+                        rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("cpf"),
                         rs.getString("telefone")

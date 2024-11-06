@@ -9,8 +9,6 @@ public interface InterfaceDAO<T> {
 
     boolean update(T objetoModelo);
 
-    boolean update(Object objetoModelo, int id);
-
     List<T> list(int limit, int offset);
 
     T get(int id);

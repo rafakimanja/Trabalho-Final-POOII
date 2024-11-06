@@ -65,14 +65,13 @@ public class VeiculoDAO implements InterfaceDAO{
         }
     }
 
-
     @Override
     public boolean update(Object objetoModelo) {
 
         Connection conector = conexaoBD.getConnection();
 
         try{
-            String sql = "UPDATE veiculos SET placa = ?, modelo = ?, cor = ?, tipo = ? WHERE placa = ?";
+            String sql = "UPDATE veiculos SET placa = ?, modelo = ?, cor = ?, tipo = ? WHERE id = ?";
 
             PreparedStatement stmt = conector.prepareStatement(sql);
 
@@ -81,7 +80,7 @@ public class VeiculoDAO implements InterfaceDAO{
             stmt.setString(2, veiculo.getModelo());
             stmt.setString(3, veiculo.getCor());
             stmt.setString(4, veiculo.getTipo().name());
-            stmt.setString(5, veiculo.getPlaca());
+            stmt.setInt(5, veiculo.getId());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -113,6 +112,7 @@ public class VeiculoDAO implements InterfaceDAO{
 
             while (rs.next()) {
                 Veiculo veiculo = new Veiculo(
+                        rs.getInt("id"),
                         rs.getString("placa"),
                         rs.getString("modelo"),
                         rs.getString("cor"),
@@ -146,6 +146,7 @@ public class VeiculoDAO implements InterfaceDAO{
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
                     Veiculo veiculo = new Veiculo(
+                            rs.getInt("id"),
                             rs.getString("placa"),
                             rs.getString("modelo"),
                             rs.getString("cor"),

@@ -2,16 +2,35 @@ package pacote_veiculo;
 
 public class Veiculo {
 
+    private int id;
     private String placa;
     private String modelo;
     private String cor;
     private Tipo tipo;
 
+    public Veiculo(int id, String placa, String modelo, String cor, String tipo) {
+        setId(id);
+        setPlaca(placa);
+        setModelo(modelo);
+        setCor(cor);
+        setTipo(tipo);
+    }
+
+    // Construtor sem ID para inserção de novos veículos
     public Veiculo(String placa, String modelo, String cor, String tipo) {
-        this.setPlaca(placa);
-        this.setModelo(modelo);
-        this.setCor(cor);
-        this.setTipo(tipo);
+        setPlaca(placa);
+        setModelo(modelo);
+        setCor(cor);
+        setTipo(tipo);
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPlaca() {
@@ -69,6 +88,7 @@ public class Veiculo {
     @Override
     public String toString() {
         return "Veiculo{" +
+                "id='" + id + '\'' +
                 "placa='" + placa + '\'' +
                 ", modelo='" + modelo + '\'' +
                 ", cor='" + cor + '\'' +

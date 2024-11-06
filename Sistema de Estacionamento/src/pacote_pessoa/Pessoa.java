@@ -1,10 +1,17 @@
 package pacote_pessoa;
 
 public class Pessoa {
-
+    private int id;
     private String nome;
     private String cpf;
     private String telefone;
+
+    public Pessoa(int id, String nome, String cpf, String telefone){
+        this.setId(id);
+        this.setNome(nome);
+        this.setCpf(cpf);
+        this.setTelefone(telefone);
+    }
 
     public Pessoa(String nome, String cpf, String telefone){
         this.setNome(nome);
@@ -12,6 +19,13 @@ public class Pessoa {
         this.setTelefone(telefone);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -89,6 +103,7 @@ public class Pessoa {
     @Override
     public String toString(){
         return "Cliente {" + "\n"
+                + "Id="+this.getId() + "\n"
                 + "Nome="+this.getNome() + "\n"
                 + "CPF="+this.getCpf() + "\n"
                 + "Telefone="+this.getTelefone() + "\n"
