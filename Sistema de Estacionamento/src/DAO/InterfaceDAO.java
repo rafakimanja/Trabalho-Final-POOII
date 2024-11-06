@@ -13,3 +13,4 @@ public interface InterfaceDAO<T> {
 
     T get(int id);
 }
+a
