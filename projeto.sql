@@ -16,8 +16,8 @@ CREATE TABLE Veiculos (
 CREATE TABLE Vagas (
     id INT PRIMARY KEY,
     Status BOOLEAN NOT NULL,
-    DataHora_Entrada DATETIME,
-    DataHora_Saida DATETIME,
+    DataHora_Entrada TIMESTAMP,
+    DataHora_Saida TIMESTAMP,
     Placa_Veiculo CHAR(7),
     FOREIGN KEY (Placa_Veiculo) REFERENCES Veiculos(Placa)
 );
