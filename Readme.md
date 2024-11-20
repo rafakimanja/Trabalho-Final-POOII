@@ -10,7 +10,7 @@ Pensando no que o sistema de propõe, ser simples, optamos por salvar os seguint
 | Placa | CPF | ID | 
 | Modelo | Nome | Status | 
 | Cor | Telefone | Data_entrada | 
-| Tipo (carro, moto, caminhão) | Data_saida | 
+| Tipo (carro, moto, caminhão) || Data_saida | 
 
 ## Modelo Relacional
 
