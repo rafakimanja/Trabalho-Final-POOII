@@ -1,6 +1,9 @@
+import DAO.VagaDAO;
 import DAO.VeiculoDAO;
+import pacote_vaga.Vaga;
 import pacote_veiculo.Veiculo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,16 +11,24 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        List veiculos = new ArrayList<>();
+        List vagas = new ArrayList<>();
+        VagaDAO vagaDAO = new VagaDAO();
 
-        Veiculo veiculo = new Veiculo("FGHI123", "Corolla 2.0 2018", "prata", "carro");
+        vagas = vagaDAO.list(10, 0);
 
-        VeiculoDAO coxVeiculo = new VeiculoDAO();
+        Vaga novaVaga = (Vaga) vagas.get(1);
 
-        coxVeiculo.insert(veiculo);
-        veiculos = coxVeiculo.list(10, 0);
+        System.out.println(novaVaga);
 
-        for(Object v : veiculos){
+        novaVaga.setDescricao("vaga23");
+
+        System.out.println(novaVaga);
+
+        System.out.println(vagaDAO.update(novaVaga));
+
+        vagas = vagaDAO.list(10, 0);
+
+        for (Object v : vagas){
             System.out.println(v);
         }
     }

@@ -1,15 +1,21 @@
 package DAO;
 
 import Conexao.ConnectionFactory;
-import pacote_pessoa.Pessoa;
+import pacote_vaga.Conversor;
+import pacote_vaga.Vaga;
+import pacote_veiculo.Veiculo;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PessoaDAO implements InterfaceDAO{
+public class VagaDAO implements InterfaceDAO{
 
     ConnectionFactory conexaoBD = new ConnectionFactory();
+    Conversor conversor = new Conversor();
 
     @Override
     public boolean insert(Object objetoModelo) {
@@ -17,28 +23,23 @@ public class PessoaDAO implements InterfaceDAO{
         Connection conector = conexaoBD.getConnection();
 
         try {
-            String sql = "INSERT INTO pessoas (nome, cpf, telefone) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO vagas (status, entrada, saida, descricao) VALUES (?, ?, ?, ?)";
 
-            Pessoa pessoa = (Pessoa) objetoModelo;
+            Vaga vaga = (Vaga)objetoModelo;
 
             PreparedStatement stmt = conector.prepareStatement(sql);
 
-            stmt.setString(1, pessoa.getNome());
-            stmt.setString(2, pessoa.getCpf());
-            stmt.setString(3, pessoa.getTelefone());
+            stmt.setBoolean(1, vaga.getStatus());
+            stmt.setTimestamp(2, conversor.toTimestamp(vaga.getEntrada_veiculo()));
+            stmt.setTimestamp(3, conversor.toTimestamp(vaga.getSaida_veiculo()));
+            stmt.setString(4, vaga.getDescricao());
+
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        }finally {
-            try {
-                conector.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
-
 
     @Override
     public boolean delete(int id) {
@@ -46,7 +47,7 @@ public class PessoaDAO implements InterfaceDAO{
         Connection conector = conexaoBD.getConnection();
 
         try{
-            String sql = "DELETE FROM pessoas WHERE id = ?";
+            String sql = "DELETE FROM vagas WHERE id = ?";
 
             PreparedStatement stmt = conector.prepareStatement(sql);
             stmt.setInt(1, id);
@@ -64,22 +65,21 @@ public class PessoaDAO implements InterfaceDAO{
         }
     }
 
-
     @Override
     public boolean update(Object objetoModelo) {
 
         Connection conector = conexaoBD.getConnection();
 
         try{
-            String sql = "UPDATE pessoas SET nome = ?, cpf = ?, telefone = ? WHERE id = ?";
+            String sql = "UPDATE vagas SET status = ?, entrada = ?, saida = ? WHERE id = ?";
 
             PreparedStatement stmt = conector.prepareStatement(sql);
 
-            Pessoa pessoa = (Pessoa) objetoModelo;
-            stmt.setString(1, pessoa.getNome());
-            stmt.setString(2, pessoa.getCpf());
-            stmt.setString(3, pessoa.getTelefone());
-            stmt.setInt(4, pessoa.getId());
+            Vaga vaga = (Vaga) objetoModelo;
+            stmt.setBoolean(1, vaga.getStatus());
+            stmt.setTimestamp(2, conversor.toTimestamp(vaga.getEntrada_veiculo()));
+            stmt.setTimestamp(3, conversor.toTimestamp(vaga.getSaida_veiculo()));
+            stmt.setInt(4, vaga.getId());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -94,15 +94,14 @@ public class PessoaDAO implements InterfaceDAO{
         }
     }
 
-
     @Override
     public List list(int limit, int offset) {
 
         Connection conector = conexaoBD.getConnection();
-        List<Pessoa> pessoas = new ArrayList<>();
+        List<Vaga> vagas = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM pessoas LIMIT ? OFFSET ?";
+            String sql = "SELECT * FROM vagas LIMIT ? OFFSET ?";
 
             PreparedStatement stmt = conector.prepareStatement(sql);
             stmt.setInt(1, limit);
@@ -110,13 +109,14 @@ public class PessoaDAO implements InterfaceDAO{
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Pessoa pessoa = new Pessoa(
+                Vaga vaga = new Vaga(
                         rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getString("telefone")
+                        rs.getBoolean("status"),
+                        conversor.toLocalDateTime(rs.getTimestamp("entrada")),
+                        conversor.toLocalDateTime(rs.getTimestamp("saida")),
+                        rs.getString("descricao")
                 );
-                pessoas.add(pessoa);
+                vagas.add(vaga);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -127,29 +127,28 @@ public class PessoaDAO implements InterfaceDAO{
                 throw new RuntimeException(e);
             }
         }
-        return pessoas;
+        return vagas;
     }
-
 
     @Override
     public Object get(int id) {
-
         Connection conector = conexaoBD.getConnection();
 
         try{
-            String sql = "SELECT * FROM pessoas WHERE id = ?";
+            String sql = "SELECT * FROM vagas WHERE id = ?";
 
             PreparedStatement stmt = conector.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                Pessoa pessoa = new Pessoa(
+                Vaga vaga = new Vaga(
                         rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getString("telefone")
+                        rs.getBoolean("status"),
+                        conversor.toLocalDateTime(rs.getTimestamp("entrada")),
+                        conversor.toLocalDateTime(rs.getTimestamp("saida")),
+                        rs.getString("descricao")
                 );
-                return pessoa;
+                return vaga;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -163,4 +162,3 @@ public class PessoaDAO implements InterfaceDAO{
         return null;
     }
 }
-
