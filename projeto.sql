@@ -1,23 +1,22 @@
-CREATE TABLE Proprietario (
-    CPF CHAR(11) PRIMARY KEY,
-    Nome VARCHAR(100) NOT NULL,
-    Telefone VARCHAR(15)
+CREATE TABLE vagas (
+    id SERIAL PRIMARY KEY,
+    status BOOLEAN NOT NULL
 );
 
-CREATE TABLE Veiculos (
-    Placa CHAR(7) PRIMARY KEY,
-    Modelo VARCHAR(50) NOT NULL,
-    Cor VARCHAR(30),
-    Tipo ENUM('carro', 'moto', 'caminhão') NOT NULL,
-    CPF_Proprietario CHAR(11) NOT NULL,
-    FOREIGN KEY (CPF_Proprietario) REFERENCES Proprietario(CPF)
+CREATE TABLE veiculo (
+    placa VARCHAR(10) PRIMARY KEY,
+    modelo VARCHAR(50) NOT NULL,
+    cor VARCHAR(20),
+    proprietario VARCHAR(100),
+    tipo VARCHAR(10) CHECK (tipo IN ('carro', 'moto', 'caminhao')) NOT NULL
 );
 
-CREATE TABLE Vagas (
-    id INT PRIMARY KEY,
-    Status BOOLEAN NOT NULL,
-    DataHora_Entrada TIMESTAMP,
-    DataHora_Saida TIMESTAMP,
-    Placa_Veiculo CHAR(7),
-    FOREIGN KEY (Placa_Veiculo) REFERENCES Veiculos(Placa)
+CREATE TABLE registro (
+    id SERIAL PRIMARY KEY,
+    id_vaga INT NOT NULL,
+    placa_veiculo VARCHAR(10) NOT NULL,
+    data_entrada TIMESTAMP NOT NULL,
+    data_saida TIMESTAMP,
+    CONSTRAINT fk_vaga FOREIGN KEY (id_vaga) REFERENCES vagas (id) ON DELETE CASCADE,
+    CONSTRAINT fk_veiculo FOREIGN KEY (placa_veiculo) REFERENCES veiculo (placa) ON DELETE CASCADE
 );
