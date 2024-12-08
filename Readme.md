@@ -5,15 +5,17 @@ Para o nosso projeto da disciplina de `POO II`, decidimos elaborar um sistema de
 
 ## Dados
 Pensando no que o sistema de propõe, ser simples, optamos por salvar os seguintes dados:
-| Veiculo | Proprietario | Vagas | 
+| Veiculo | Registro | Vagas | 
 |-------|--------|--------|
-| Placa | CPF | ID | 
-| Modelo | Nome | Status | 
-| Cor | Telefone | Data_entrada | 
-| Tipo (carro, moto, caminhão) || Data_saida | 
+| Placa | ID | ID | 
+| Modelo | Data_entrada | Status | 
+| Cor | Data_saida |  | 
+| Tipo (carro, moto, caminhão) || | 
+| Proprietário || |
 
 ## Modelo Relacional
 
 
 
-![ER_estacionamento](https://github.com/user-attachments/assets/852c6e6a-5a8d-4563-a211-e100d92da7a1)
+![ER_estacionamento](https://github.com/user-attachments/assets/c2cf654c-6e54-4a07-ae98-2c0e52314d43)
+
