@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.gui.controllers.MainController">
+    <top>
+        <Label text="Home" textFill="#f80000" BorderPane.alignment="CENTER">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+    </top>
+    <center>
+        <TableView fx:id="tabRegistros" prefHeight="427.0" prefWidth="704.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="clmId" prefWidth="97.0" text="Id" />
+                <TableColumn fx:id="clmVaga" prefWidth="246.0" text="Vaga" />
+                <TableColumn fx:id="clmVeiculo" prefWidth="292.0" text="Veiculo" />
+                <TableColumn fx:id="clmEntrada" minWidth="150.0" prefWidth="239.0" text="Entrada" />
+                <TableColumn fx:id="clmSaida" prefWidth="221.0" text="Saida" />
+            </columns>
+        </TableView>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER" prefHeight="49.0" prefWidth="700.0" spacing="35.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="btnAdicionaRegistro" mnemonicParsing="false" onAction="#handleAdicionaRegistro" text="Adicionar Registro" />
+                <Button mnemonicParsing="false" onAction="#handleEditarRegistro" text="Editar Registro" />
+                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleExcluiRegistro" text="Excluir Registro" />
+            </children>
+        </HBox>
+    </bottom>
+   <left>
+      <VBox prefHeight="427.0" prefWidth="184.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnMudaHome" mnemonicParsing="false" onAction="#handleMudaHome" prefHeight="40.0" prefWidth="184.0" text="Home">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Button fx:id="btnMudaVagas" mnemonicParsing="false" onAction="#handleMudaVagas" prefHeight="40.0" prefWidth="184.0" text="Vagas Cad." />
+            <Button fx:id="btnMudaCarros" mnemonicParsing="false" onAction="#handleMudaCarros" prefHeight="40.0" prefWidth="209.0" text="Carros Cad." />
+         </children>
+      </VBox>
+   </left>
+</BorderPane>
